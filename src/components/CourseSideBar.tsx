@@ -1,50 +1,55 @@
-import { cn } from "@/lib/utils";
-import { Chapter, Course, Unit } from "@prisma/client";
-import Link from "next/link";
-import React from "react";
-import { Separator } from "./ui/separator";
+"use client"
 
-type Props = {
+import { motion } from "framer-motion"
+import Link from "next/link"
+import { cn } from "@/lib/utils"
+import { Chapter, Course, Unit } from "@prisma/client"
+
+type CourseSidebarProps = {
   course: Course & {
     units: (Unit & {
-      chapters: Chapter[];
-    })[];
-  };
-  currentChapterId: string;
-};
+      chapters: Chapter[]
+    })[]
+  }
+  currentChapterId: string
+}
 
-const CourseSideBar = async ({ course, currentChapterId }: Props) => {
+export function CourseSidebar({ course, currentChapterId }: CourseSidebarProps) {
   return (
-    <div className="w-[400px] absolute top-1/2 -translate-y-1/2 p-6 rounded-r-3xl bg-secondary">
-      <h1 className="text-4xl font-bold">{course.name}</h1>
-      {course.units.map((unit, unitIndex) => {
-        return (
-          <div key={unit.id} className="mt-4">
-            <h2 className="text-sm uppercase text-secondary-foreground/60">
-              Unit {unitIndex + 1}
-            </h2>
-            <h2 className="text-2xl font-bold">{unit.name}</h2>
-            {unit.chapters.map((chapter, chapterIndex) => {
-              return (
-                <div key={chapter.id}>
-                  <Link
-                    href={`/course/${course.id}/${unitIndex}/${chapterIndex}`}
-                    className={cn("text-secondary-foreground/60", {
-                      "text-green-500 font-bold":
-                        chapter.id === currentChapterId,
-                    })}
-                  >
-                    {chapter.name}
-                  </Link>
-                </div>
-              );
-            })}
-            <Separator className="mt-2 text-gray-500 bg-gray-500" />
-          </div>
-        );
-      })}
-    </div>
-  );
-};
-
-export default CourseSideBar;
+    <nav className="space-y-6">
+      {course.units.map((unit, unitIndex) => (
+        <motion.div
+          key={unit.id}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: unitIndex * 0.1 }}
+        >
+          <h2 className="text-lg font-semibold mb-3 text-blue-300">
+            Unit {unitIndex + 1}: {unit.name}
+          </h2>
+          <ul className="space-y-2">
+            {unit.chapters.map((chapter, chapterIndex) => (
+              <motion.li
+                key={chapter.id}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  href={`/course/${course.id}/${unitIndex}/${chapterIndex}`}
+                  className={cn(
+                    "block p-2 rounded transition-colors",
+                    chapter.id === currentChapterId
+                      ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white"
+                      : "hover:bg-gray-700 text-gray-300 hover:text-white"
+                  )}
+                >
+                  {chapter.name}
+                </Link>
+              </motion.li>
+            ))}
+          </ul>
+        </motion.div>
+      ))}
+    </nav>
+  )
+}

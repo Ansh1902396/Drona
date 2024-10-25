@@ -5,11 +5,18 @@ const nextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true,
+    
   },
   typescript: {
     ignoreBuildErrors: true,
+    
+  },
+
+  experimental : {
+    serverActions : true 
   },
   output: "standalone",
+  
 };
 
 module.exports = nextConfig;

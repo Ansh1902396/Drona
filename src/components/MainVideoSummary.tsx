@@ -1,37 +1,65 @@
-import { Chapter, Unit } from "@prisma/client";
-import React from "react";
+"use client"
 
-type Props = {
-  chapter: Chapter;
-  unit: Unit;
-  unitIndex: number;
-  chapterIndex: number;
-};
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { Play, Pause } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Chapter, Unit } from "@prisma/client"
 
-const MainVideoSummary = ({
+type MainVideoSummaryProps = {
+  unit: Unit
+  unitIndex: number
+  chapter: Chapter
+  chapterIndex: number
+}
+
+export function MainVideoSummary({
   unit,
   unitIndex,
   chapter,
   chapterIndex,
-}: Props) => {
-  return (
-    <div className="flex-[2] mt-16">
-      <h4 className="text-sm uppercase text-secondary-foreground/60">
-        Unit {unitIndex + 1} &bull; Chapter {chapterIndex + 1}
-      </h4>
-      <h1 className="text-4xl font-bold">{chapter.name}</h1>
-      <iframe
-        title="chapter video"
-        className="w-full mt-4 aspeect-video max-h-[24rem]"
-        src={`https://www.youtube.com/embed/${chapter.videoId}`}
-        allowFullScreen
-      />
-      <div className="mt-4">
-        <h3 className="text-3xl font-semibold">Summary</h3>
-        <p className="mt-2 text-secondary-foreground/80">{chapter.summary}</p>
-      </div>
-    </div>
-  );
-};
+}: MainVideoSummaryProps) {
+  const [isPlaying, setIsPlaying] = useState(false)
 
-export default MainVideoSummary;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <h2 className="text-2xl font-bold mb-4 text-purple-300">{chapter.name}</h2>
+      <p className="text-gray-400 mb-4">
+        Unit {unitIndex + 1}, Chapter {chapterIndex + 1}
+      </p>
+      <div className="relative rounded-lg overflow-hidden shadow-lg">
+        <iframe
+          title="chapter video"
+          className="w-full aspect-video"
+          src={`https://www.youtube.com/embed/${chapter.videoId}`}
+          allowFullScreen
+        />
+        <Button
+          variant="secondary"
+          size="icon"
+          className="absolute bottom-4 right-4 bg-purple-500 hover:bg-purple-600 text-white"
+          onClick={() => setIsPlaying(!isPlaying)}
+        >
+          {isPlaying ? (
+            <Pause className="h-6 w-6" />
+          ) : (
+            <Play className="h-6 w-6" />
+          )}
+        </Button>
+      </div>
+      <Card className="mt-8 bg-gray-800 bg-opacity-50 backdrop-blur-lg border-none">
+        <CardHeader>
+          <CardTitle className="text-blue-300">Summary</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-gray-300">{chapter.summary}</p>
+        </CardContent>
+      </Card>
+    </motion.div>
+  )
+}
