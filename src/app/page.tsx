@@ -42,8 +42,6 @@ export default function Component() {
     
     <div className="min-h-screen bg-gradient-to-b from-[#1a2b3c] to-[#0d1520] text-white overflow-hidden">
       <CheckeredBackground>
-      
-
         <main className="container mx-auto px-4 relative z-10">
           <motion.section 
             className="text-center py-20"
