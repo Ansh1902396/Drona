@@ -8,6 +8,11 @@ import { Twitter, ChevronRight, Star } from "lucide-react"
 import Image from "next/image"
 import CheckeredBackground from "../components/CheckeredBackground"
 import Link from 'next/link'
+import acic from '../../public/acic-vgu.png'
+import azure from '../../public/azure.svg'
+import nav  from '../../public/nav-logo-white.svg'
+import niti from '../../public/NITI_Aayog_logo.svg.png'
+
 
 
 export default function Component() {
@@ -105,16 +110,16 @@ export default function Component() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h2 className="text-center text-3xl font-bold mb-12">Trusted by developers from</h2>
+            <h2 className="text-center text-3xl font-bold mb-12">Trusted by</h2>
             <div className="flex justify-center items-center space-x-12 flex-wrap">
-              {['Modern Realty', 'Simple AI', 'MultiOn', 'Maitc'].map((company, index) => (
-                <motion.div
+              {[nav, acic, azure,niti].map((company, index) => (
+                 <motion.div
                   key={company}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <Image src="/placeholder.svg" alt={company} width={120} height={40} className="opacity-70 hover:opacity-100 transition-opacity duration-300" />
+                  <Image src={company} alt="Company" width={120} height={40} className="opacity-70 hover:opacity-100 transition-opacity duration-300" />
                 </motion.div>
               ))}
             </div>
