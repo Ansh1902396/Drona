@@ -4,7 +4,7 @@ import React from "react"
 import { motion } from 'framer-motion'
 import Image from "next/image"
 import Link from "next/link"
-import { Github } from "lucide-react"
+import { Github, Phone } from "lucide-react"
 import SignInButton from "./SignInButton"
 import UserAccountNav from "./UserAccountNav"
 import logo from "../../public/logo.svg"
@@ -20,6 +20,7 @@ export default function Component({ session }: Props = { session: null }) {
     { name: 'Create Course', href: '/create' },
     { name: 'Settings', href: '/settings' },
     { name: 'Team', href: '/team' },
+  
   ]
 
   return (
@@ -65,6 +66,15 @@ export default function Component({ session }: Props = { session: null }) {
               <Link href="https://github.com/AnonO6/DronaAI" target="_blank" rel="noopener noreferrer">
                 <Github className="w-6 h-6 text-cyan-100 hover:text-white transition-colors duration-300" />
               </Link>
+            </motion.div>
+
+            <motion.div
+                whileHover={{ scale: 1.05 }} 
+                whileTap={{ scale: 0.95 }} 
+                className="relative"
+            >
+              
+
             </motion.div>
           </div>
         </nav>
