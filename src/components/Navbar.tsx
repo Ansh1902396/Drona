@@ -4,11 +4,12 @@ import React from "react"
 import { motion } from 'framer-motion'
 import Image from "next/image"
 import Link from "next/link"
-import { Github, Phone } from "lucide-react"
+import { Github, MessageCircle } from "lucide-react"
 import SignInButton from "./SignInButton"
 import UserAccountNav from "./UserAccountNav"
 import logo from "../../public/logo.svg"
 import { Session } from "next-auth"
+import { Button } from "@/components/ui/button"
 
 type Props = {
   session: Session | null
@@ -20,7 +21,6 @@ export default function Component({ session }: Props = { session: null }) {
     { name: 'Create Course', href: '/create' },
     { name: 'Settings', href: '/settings' },
     { name: 'Team', href: '/team' },
-  
   ]
 
   return (
@@ -28,10 +28,10 @@ export default function Component({ session }: Props = { session: null }) {
       <div className="w-full flex justify-center fixed top-0 left-0 right-0 z-50 px-4">
         <nav className="flex items-center justify-center w-full max-w-5xl px-6 py-2 mt-4 mb-8 bg-opacity-20 bg-cyan-900 backdrop-filter backdrop-blur-lg rounded-full shadow-lg">
           <div className="flex items-center space-x-6">
-            <Link href= "/">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-shrink-0">
-              <Image src={logo} alt="Drona.AI Logo" width={48} height={48} className="rounded-full" />
-            </motion.div>
+            <Link href="/">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-shrink-0">
+                <Image src={logo} alt="Drona.AI Logo" width={48} height={48} className="rounded-full" />
+              </motion.div>
             </Link>
             
             <div className="hidden md:flex space-x-6">
@@ -69,12 +69,21 @@ export default function Component({ session }: Props = { session: null }) {
             </motion.div>
 
             <motion.div
-                whileHover={{ scale: 1.05 }} 
-                whileTap={{ scale: 0.95 }} 
-                className="relative"
+              whileHover={{ scale: 1.05 }} 
+              whileTap={{ scale: 0.95 }} 
+              className="relative"
             >
+              <Link href={"https://hume-evi-next-js-starter-7tnehnkuu-ansh1902396s-projects.vercel.app"}>
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-cyan-100 hover:text-white border-cyan-100 hover:border-white transition-colors duration-300"
+              >
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Ask Drona
+              </Button>
+              </Link>
               
-
             </motion.div>
           </div>
         </nav>

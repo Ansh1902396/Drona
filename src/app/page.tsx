@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, useAnimation } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Twitter, ChevronRight, Star } from "lucide-react"
+import { Twitter, ChevronRight, Star, LucideThermometerSnowflake } from "lucide-react"
 import Image from "next/image"
 import CheckeredBackground from "../components/CheckeredBackground"
 import Link from 'next/link'
@@ -90,17 +90,20 @@ export default function Component() {
              Drona AI is your new age mentor that helps you learn , and thrive with this changing world of education , where there's always something new to learn.
             </motion.p>
             <motion.div variants={fadeInUp} className="flex justify-center space-x-4">
+              <Link href="/gallery">
               <Button 
                 className="bg-white text-black hover:bg-gray-200 transition-all duration-300 transform hover:scale-105"
               >
                 Get started
               </Button>
+              </Link>
+                <Link href="/create">
               <Button 
                 variant="outline" 
                 className="bg-transparent text-white border-white hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105"
               >
-                Try the Playground
-              </Button>
+                Generate course              </Button>
+                </Link>
             </motion.div>
           </motion.section>
 
